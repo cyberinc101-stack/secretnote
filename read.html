@@ -16,6 +16,14 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 .spinner { display: inline-block; animation: spin .9s linear infinite; }
 </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-XXXXXXXXXX");
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -23,7 +31,7 @@
 <main class="main-content">
 <div class="read-wrap">
 
-  <!-- <div class="ad-slot ad-leader">Advertisement</div> -->
+  <div class="ad-slot ad-leader">Advertisement</div>
 
   <!-- Loading -->
   <div id="s-loading" style="text-align:center;padding:2.5rem 1rem">
@@ -108,7 +116,7 @@
       </div>
     </div>
 
-    <!-- <div class="ad-slot ad-banner">Advertisement</div> -->
+    <div class="ad-slot ad-banner">Advertisement</div>
 
     <div class="content-card">
       <h2>Want to send a private note?</h2>
