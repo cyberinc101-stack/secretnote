@@ -1,0 +1,101 @@
+/* ── LIGHT MODE (default) ─────────────────────────────── */
+:root {
+  --primary:       #2563EB;
+  --primary-dark:  #1D4ED8;
+  --primary-light: #EFF6FF;
+  --primary-glow:  rgba(37,99,235,.12);
+  --primary-border:rgba(37,99,235,.25);
+
+  --green:        #16A34A;
+  --green-light:  #F0FDF4;
+  --green-border: rgba(22,163,74,.25);
+
+  --amber:        #D97706;
+  --amber-light:  #FFFBEB;
+  --amber-border: rgba(217,119,6,.25);
+
+  --red:          #DC2626;
+  --red-light:    #FEF2F2;
+  --red-border:   rgba(220,38,38,.25);
+
+  /* surfaces */
+  --bg:           #F9FAFB;
+  --bg2:          #F3F4F6;
+  --surface:      #FFFFFF;
+  --surface2:     #F9FAFB;
+  --border:       #E5E7EB;
+  --border2:      #D1D5DB;
+
+  /* text */
+  --text:         #111827;
+  --text-2:       #374151;
+  --text-muted:   #6B7280;
+
+  /* note textarea */
+  --note-bg:      #FAFAFA;
+  --note-text:    #111827;
+
+  /* link display */
+  --link-bg:      #EFF6FF;
+  --link-border:  #BFDBFE;
+  --link-text:    #1D4ED8;
+
+  /* misc */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06);
+  --shadow:     0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,.10);
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius:    12px;
+  --radius-lg: 16px;
+
+  --font:      'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Mono', monospace;
+  --max-w:     720px;
+
+  --transition: .18s ease;
+}
+
+/* ── DARK MODE ────────────────────────────────────────── */
+[data-theme="dark"] {
+  --primary:       #3B82F6;
+  --primary-dark:  #2563EB;
+  --primary-light: #1E3A5F;
+  --primary-glow:  rgba(59,130,246,.14);
+  --primary-border:rgba(59,130,246,.3);
+
+  --green:        #22C55E;
+  --green-light:  #052E16;
+  --green-border: rgba(34,197,94,.25);
+
+  --amber:        #F59E0B;
+  --amber-light:  #1C1408;
+  --amber-border: rgba(245,158,11,.25);
+
+  --red:          #F87171;
+  --red-light:    #1F0A0A;
+  --red-border:   rgba(248,113,113,.25);
+
+  --bg:           #0F1117;
+  --bg2:          #161B27;
+  --surface:      #1C2232;
+  --surface2:     #232B3E;
+  --border:       #2D3748;
+  --border2:      #3D4F6E;
+
+  --text:         #F1F5F9;
+  --text-2:       #CBD5E1;
+  --text-muted:   #64748B;
+
+  --note-bg:      #161B27;
+  --note-text:    #E2E8F0;
+
+  --link-bg:      #1E3A5F;
+  --link-border:  #2563EB;
+  --link-text:    #93C5FD;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.4);
+  --shadow:     0 4px 16px rgba(0,0,0,.5);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,.6);
+}

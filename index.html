@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SecretNote — Send Encrypted Self-Destructing Notes Free</title>
+<meta name="description" content="Create an encrypted note that automatically deletes itself after being read once, or after a time limit — 1 minute, 5 minutes, or any custom duration. 100% private. No account needed.">
+<meta name="keywords" content="self destructing notes,encrypted note deletes itself,send secret message online,one time secret note,note self destructs after reading,secure message link,privnote alternative,share password securely,disappearing message,burn after reading">
+<link rel="canonical" href="https://yourdomain.com/">
+<meta property="og:title" content="SecretNote — Encrypted Notes That Delete Themselves">
+<meta property="og:description" content="Write a private note. Get a one-time link. Share it. The note vanishes the moment it is read.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SecretNote","description":"Create encrypted notes that self-destruct after being read or after a time limit.","url":"https://yourdomain.com/","applicationCategory":"SecurityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/vars.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<div class="hero-band">
+  <div class="container">
+    <div class="hero-badge">AES-256 Encrypted in Your Browser</div>
+    <h1>Encrypted Notes That Delete Themselves</h1>
+    <p class="hero-sub">Write a private note, get a one-time link, share it. The note is permanently destroyed the moment it is read.</p>
+    <div class="hero-trust">
+      <span>&#10003; End-to-end encrypted</span>
+      <span>&#10003; Destroyed after reading</span>
+      <span>&#10003; Time expiry option</span>
+      <span>&#10003; No account required</span>
+    </div>
+  </div>
+</div>
+
+<main class="main-content">
+<div class="main-wrap">
+
+  <div class="ad-slot ad-leader">Advertisement</div>
+
+  <div class="info-box" id="info-box">
+    <strong>How it works:</strong>
+    <ol>
+      <li>Write your note. It is encrypted in your browser before anything is stored.</li>
+      <li>Click <strong>Create Note</strong> to get a one-time link.</li>
+      <li>Send that link to your recipient.</li>
+      <li>They read the note once &mdash; then it is permanently destroyed. No copy exists anywhere.</li>
+    </ol>
+    <p style="margin-top:.5rem;font-size:.8rem">The decryption key lives only in the URL &mdash; our servers never see it.</p>
+  </div>
+
+  <div class="note-card" id="note-card">
+    <div class="note-card-header">
+      <div class="note-card-title">
+        New note
+        <span class="char-badge" id="char-count">0 / 50,000</span>
+      </div>
+      <button class="help-btn" id="help-btn" title="How it works">?</button>
+    </div>
+
+    <textarea
+      class="note-textarea"
+      id="note-textarea"
+      placeholder="Type your private note here &mdash; passwords, messages, credentials, anything sensitive."
+      maxlength="50000"
+      spellcheck="true"
+    ></textarea>
+
+    <div class="options-panel" id="options-panel">
+
+      <span class="section-label">Note expires</span>
+      <div class="pill-row">
+        <button class="epill active" data-val="read">After reading</button>
+        <button class="epill" data-val="1">1 min</button>
+        <button class="epill" data-val="5">5 min</button>
+        <button class="epill" data-val="10">10 min</button>
+        <button class="epill" data-val="20">20 min</button>
+        <button class="epill" data-val="30">30 min</button>
+        <button class="epill" data-val="60">1 hour</button>
+        <button class="epill" data-val="1440">24 hours</button>
+        <button class="epill" data-val="10080">7 days</button>
+        <button class="epill" data-val="custom">Custom</button>
+      </div>
+
+      <div class="custom-row" id="custom-row">
+        <input type="number" id="custom-num" class="opt-input" placeholder="e.g. 45" min="1" max="525600" style="width:90px">
+        <select id="custom-unit" class="opt-select" style="width:105px">
+          <option value="1">minutes</option>
+          <option value="60">hours</option>
+          <option value="1440">days</option>
+        </select>
+        <span class="custom-preview" id="custom-preview"></span>
+      </div>
+
+      <div class="expiry-notice" id="expiry-notice">Destroyed when recipient reads it.</div>
+
+      <div class="opt-grid">
+        <div class="opt-field">
+          <label class="opt-label">Password (optional)</label>
+          <input type="password" class="opt-input" id="opt-pw" placeholder="Leave blank for no password" autocomplete="new-password">
+        </div>
+        <div class="opt-field">
+          <label class="opt-label">Confirm password</label>
+          <input type="password" class="opt-input" id="opt-pw2" placeholder="Re-enter password">
+        </div>
+        <div class="opt-field">
+          <label class="opt-label">Reference label (optional)</label>
+          <input type="text" class="opt-input" id="opt-ref" placeholder="e.g. Server login for Alice" maxlength="60">
+        </div>
+        <div class="opt-field">
+          <label class="opt-label">Notify on destroy</label>
+          <input type="email" class="opt-input" id="opt-email" placeholder="your@email.com">
+          <span class="opt-hint">Email notification &mdash; coming soon</span>
+        </div>
+      </div>
+
+      <label class="opt-check">
+        <input type="checkbox" id="opt-noconfirm">
+        Skip confirmation &mdash; destroy note immediately when link is opened
+      </label>
+
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-primary" id="create-btn">Create Note</button>
+      <button class="btn btn-outline" id="opts-btn">Options</button>
+      <button class="btn btn-outline btn-sm" id="clear-btn" style="margin-left:auto">Clear</button>
+    </div>
+  </div>
+
+  <div class="result-panel" id="result-panel">
+    <div class="result-header">
+      <div class="result-dot"></div>
+      <div class="result-title">Note created &mdash; share this link</div>
+    </div>
+    <div class="result-body">
+      <div class="link-box">
+        <span class="link-url" id="result-url"></span>
+        <span class="link-meta" id="result-meta"></span>
+      </div>
+      <div class="status-notice"><span id="status-text">This note permanently self-destructs the moment it is opened.</span></div>
+      <div class="countdown-badge" id="countdown-badge" style="display:none">
+        Expires in: <span id="countdown-text"></span>
+      </div>
+      <div class="result-actions">
+        <button class="btn btn-green" id="copy-btn">Copy Link</button>
+        <button class="btn btn-outline" id="share-btn">Share</button>
+        <button class="btn btn-red" id="destroy-btn">Delete Note Now</button>
+        <button class="btn btn-outline" id="new-btn" style="margin-left:auto">+ New Note</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-slot ad-banner">Advertisement</div>
+
+  <div class="content-card">
+    <h2>What is SecretNote?</h2>
+    <p>SecretNote lets you send private encrypted messages that permanently delete themselves after being read once &mdash; or after a time limit you set. Unlike email or messaging apps, there is no archive, no backup, and no trace once a note is destroyed.</p>
+
+    <div class="use-chips">
+      <span class="chip">Passwords &amp; credentials</span>
+      <span class="chip">Private messages</span>
+      <span class="chip">API keys &amp; tokens</span>
+      <span class="chip">Bank account details</span>
+      <span class="chip">One-time codes</span>
+      <span class="chip">Sensitive business info</span>
+      <span class="chip">Legal communications</span>
+      <span class="chip">Personal messages</span>
+    </div>
+
+    <h3>How the encryption works</h3>
+    <p>Your note is encrypted in your browser using AES-256-GCM before anything is stored. The decryption key is placed in the URL fragment (after the <code>#</code> symbol) &mdash; browsers never send URL fragments to servers, so your key is invisible to anyone monitoring traffic. Decryption happens locally in your recipient's browser.</p>
+
+    <h3>Time-based expiry</h3>
+    <p>Set any expiry from 1 minute to 7 days, or enter a custom duration. An expired note is automatically deleted and cannot be read, even if the link was never opened. This is ideal for time-sensitive credentials and one-time codes.</p>
+
+    <h3>Why not just send an email or text?</h3>
+    <p>Emails and messages are stored permanently on servers, in backups, and on recipient devices. If any account is compromised later, sensitive messages can be exposed. SecretNote ensures the information ceases to exist the moment it has been received.</p>
+
+    <h2 style="margin-top:1.25rem">Frequently Asked Questions</h2>
+    <div class="faq-item"><div class="faq-q">Is SecretNote truly private?</div><div class="faq-a"><p>Yes. Your note is encrypted in your browser using AES-256-GCM. The decryption key exists only in the URL you share. Our servers see only encrypted ciphertext with no way to decrypt it.</p></div></div>
+    <div class="faq-item"><div class="faq-q">What happens when the link expires?</div><div class="faq-a"><p>The note is automatically deleted. Anyone opening the link after expiry sees a message that the note is gone. They cannot tell whether it expired or was already read.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Can I password-protect a note?</div><div class="faq-a"><p>Yes. Use the Options section to add a password. The recipient must enter the correct password to read the note. Share the password via a separate channel for maximum security.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Can someone screenshot the note?</div><div class="faq-a"><p>We cannot prevent screenshots. SecretNote protects against digital copies and forwarding &mdash; the link becomes permanently invalid after the first read. For highly sensitive content, use the password feature.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Where is the note stored?</div><div class="faq-a"><p>The encrypted note is stored in your browser's localStorage. Nothing is stored on any external server. Clearing your browser site data for this domain will delete any notes you have created.</p></div></div>
+  </div>
+
+</div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/engine.js"></script>
+<script src="js/layout.js"></script>
+<script>
+(function(){
+  var _expiry = 'read';
+  var _noteId = null;
+  var _timer  = null;
+
+  function fmtMins(m){
+    if(m < 60)   return m + ' minute' + (m===1?'':'s');
+    if(m < 1440) return (m/60).toFixed(1).replace('.0','') + ' hour' + (m===60?'':'s');
+    return (m/1440).toFixed(1).replace('.0','') + ' day' + (m===1440?'':'s');
+  }
+
+  /* expiry pills */
+  document.querySelectorAll('.epill').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      document.querySelectorAll('.epill').forEach(function(p){ p.classList.remove('active'); });
+      pill.classList.add('active');
+      _expiry = pill.dataset.val;
+      document.getElementById('custom-row').classList.toggle('show', _expiry === 'custom');
+      updateNotice();
+    });
+  });
+
+  function updateCustom(){
+    var n = parseInt(document.getElementById('custom-num').value)||0;
+    var u = parseInt(document.getElementById('custom-unit').value);
+    var total = n*u;
+    document.getElementById('custom-preview').textContent = (n&&total) ? '= '+fmtMins(total) : '';
+    if(n&&total) _expiry = String(total);
+    updateNotice();
+  }
+  document.getElementById('custom-num').addEventListener('input', updateCustom);
+  document.getElementById('custom-unit').addEventListener('change', updateCustom);
+
+  function updateNotice(){
+    var el = document.getElementById('expiry-notice');
+    var v  = parseInt(_expiry);
+    el.textContent = (!v || _expiry==='read')
+      ? 'Destroyed when recipient reads it.'
+      : 'Destroyed when read, or automatically after '+fmtMins(v)+' if not opened.';
+  }
+
+  /* char count */
+  var ta = document.getElementById('note-textarea');
+  ta.addEventListener('input', function(){
+    document.getElementById('char-count').textContent = ta.value.length.toLocaleString()+' / 50,000';
+  });
+
+  /* toggles */
+  document.getElementById('help-btn').addEventListener('click', function(){
+    document.getElementById('info-box').classList.toggle('show');
+  });
+  document.getElementById('opts-btn').addEventListener('click', function(){
+    var p   = document.getElementById('options-panel');
+    var btn = document.getElementById('opts-btn');
+    var open = p.classList.toggle('open');
+    btn.textContent = open ? 'Hide Options' : 'Options';
+  });
+  document.getElementById('clear-btn').addEventListener('click', function(){
+    ta.value=''; document.getElementById('char-count').textContent='0 / 50,000';
+  });
+
+  /* create */
+  document.getElementById('create-btn').addEventListener('click', async function(){
+    var text = ta.value.trim();
+    if(!text){ showToast('Please write a note first', true); return; }
+
+    var pw  = document.getElementById('opt-pw').value;
+    var pw2 = document.getElementById('opt-pw2').value;
+    if(pw && pw!==pw2){ showToast('Passwords do not match', true); return; }
+
+    var expiryMins = _expiry;
+    if(_expiry==='custom'){
+      var n=parseInt(document.getElementById('custom-num').value);
+      var u=parseInt(document.getElementById('custom-unit').value);
+      if(!n||n<=0){ showToast('Enter a valid custom time', true); return; }
+      expiryMins = String(n*u);
+    }
+
+    var noteText  = pw ? ('PWD:'+pw+'\n---CONTENT---\n'+text) : text;
+    var noConfirm = document.getElementById('opt-noconfirm').checked;
+    var ref       = document.getElementById('opt-ref').value.trim();
+    var btn       = document.getElementById('create-btn');
+    btn.disabled=true; btn.textContent='Encrypting...';
+
+    try {
+      var res = await GN.createNote(noteText, {
+        expiry:    expiryMins==='read' ? null : expiryMins,
+        noConfirm: noConfirm,
+      });
+      _noteId = res.id;
+
+      var url = GN.buildUrl(res.id, res.keyHex);
+      document.getElementById('result-url').textContent = url;
+
+      var mins = parseInt(expiryMins);
+      var meta = 'One-time link';
+      if(ref) meta += ' · '+ref;
+      if(mins>0) meta += ' · Expires in '+fmtMins(mins);
+      document.getElementById('result-meta').textContent = meta;
+      document.getElementById('status-text').textContent = mins>0
+        ? 'Destroyed when read, or automatically after '+fmtMins(mins)+' if not opened.'
+        : 'Permanently destroyed the moment it is opened. No copy will exist anywhere.';
+
+      startCountdown(mins);
+      document.getElementById('note-card').style.display='none';
+      var rp=document.getElementById('result-panel');
+      rp.classList.add('show');
+      rp.scrollIntoView({behavior:'smooth',block:'start'});
+    } catch(err){
+      showToast(err.message||'Something went wrong',true);
+    } finally {
+      btn.disabled=false; btn.textContent='Create Note';
+    }
+  });
+
+  function startCountdown(mins){
+    if(_timer) clearInterval(_timer);
+    var badge=document.getElementById('countdown-badge');
+    if(!mins||mins<=0){ badge.style.display='none'; return; }
+    var exp=Date.now()+mins*60*1000;
+    badge.style.display='';
+    function tick(){
+      var left=GN.formatTimeLeft(exp);
+      document.getElementById('countdown-text').textContent=left;
+      if(left==='Expired'){ clearInterval(_timer); document.getElementById('countdown-text').textContent='Expired'; }
+    }
+    tick(); _timer=setInterval(tick,1000);
+  }
+
+  /* result actions */
+  document.getElementById('copy-btn').addEventListener('click', function(){
+    copyText(document.getElementById('result-url').textContent, 'Link copied to clipboard');
+  });
+  document.getElementById('share-btn').addEventListener('click', function(){
+    var url=document.getElementById('result-url').textContent;
+    if(navigator.share) navigator.share({title:'Private note',url:url});
+    else copyText(url,'Link copied');
+  });
+  document.getElementById('destroy-btn').addEventListener('click', function(){
+    if(!_noteId) return;
+    if(!confirm('Permanently delete this note now? This cannot be undone.')) return;
+    GN.deleteNote(_noteId);
+    if(_timer) clearInterval(_timer);
+    document.getElementById('result-panel').classList.remove('show');
+    var d=document.createElement('div');
+    d.style.cssText='text-align:center;padding:1.5rem 1rem';
+    d.innerHTML='<p style="color:var(--text-muted);font-size:.9rem">Note deleted. <a href="index.html">Create a new one</a></p>';
+    document.querySelector('.main-wrap').insertBefore(d,document.getElementById('result-panel').nextSibling);
+    _noteId=null;
+  });
+  document.getElementById('new-btn').addEventListener('click', function(){
+    document.getElementById('result-panel').classList.remove('show');
+    document.getElementById('note-card').style.display='';
+    ta.value='';
+    document.getElementById('char-count').textContent='0 / 50,000';
+    if(_timer) clearInterval(_timer);
+    _noteId=null;
+  });
+
+})();
+</script>
+</body>
+</html>

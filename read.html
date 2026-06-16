@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>You Have a Private Note &mdash; SecretNote</title>
+<meta name="description" content="Someone sent you a private encrypted note. Read it now &mdash; it will permanently self-destruct after you view it.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/vars.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<style>
+.read-wrap { max-width: 640px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { display: inline-block; animation: spin .9s linear infinite; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<main class="main-content">
+<div class="read-wrap">
+
+  <div class="ad-slot ad-leader">Advertisement</div>
+
+  <!-- Loading -->
+  <div id="s-loading" style="text-align:center;padding:2.5rem 1rem">
+    <div class="spinner" style="font-size:1.6rem;margin-bottom:.75rem">&#9203;</div>
+    <p style="color:var(--text-muted);font-size:.88rem;margin:0">Verifying note&hellip;</p>
+  </div>
+
+  <!-- Not found -->
+  <div id="s-gone" style="display:none">
+    <div class="state-box">
+      <div class="state-box-center">
+        <div class="state-icon">&#128274;</div>
+        <div class="state-title">Note Not Found</div>
+        <p class="state-sub">This note has already been read and destroyed, or the link is invalid. Notes can only be read once.</p>
+        <a href="index.html" class="btn btn-primary">Create a New Note</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expired -->
+  <div id="s-expired" style="display:none">
+    <div class="state-box">
+      <div class="state-box-center">
+        <div class="state-icon">&#128338;</div>
+        <div class="state-title">This Note Has Expired</div>
+        <p class="state-sub">The sender set a time limit on this note and the time has passed. The note has been permanently deleted.</p>
+        <a href="index.html" class="btn btn-primary">Create Your Own Note</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm -->
+  <div id="s-confirm" style="display:none">
+    <div class="warn-banner">
+      <strong>Read once, then gone.</strong>&nbsp; Once you read this note, it is permanently destroyed. There is no way to recover it.
+    </div>
+
+    <div class="state-box">
+      <div class="state-box-center">
+        <div class="state-icon">&#128274;</div>
+        <div class="state-title">You Have a Private Note</div>
+        <p class="state-sub">Someone sent you an encrypted message. It will be destroyed the moment you read it.</p>
+
+        <div class="confirm-meta" id="confirm-meta">
+          <span>&#10003; AES-256 encrypted</span>
+          <span id="meta-expiry"></span>
+          <span id="meta-pw"></span>
+        </div>
+
+        <div class="read-countdown" id="read-countdown" style="display:none">
+          Expires in: <span id="read-countdown-text"></span>
+        </div>
+
+        <div class="pw-field" id="pw-field" style="display:none">
+          <label for="pw-input">This note is password protected</label>
+          <input type="password" class="pw-input" id="pw-input" placeholder="Enter password to unlock">
+          <div class="pw-error" id="pw-error">Incorrect password. Please try again.</div>
+        </div>
+
+        <button class="btn btn-red" id="reveal-btn" style="width:100%;justify-content:center;padding:.7rem 1.2rem;margin-bottom:.75rem;font-size:.95rem">
+          Read &amp; Delete This Note
+        </button>
+        <p style="font-size:.72rem;color:var(--text-muted);margin:0">This action is permanent and irreversible.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Revealed -->
+  <div id="s-revealed" style="display:none">
+    <div class="state-box">
+      <div class="result-header" style="background:var(--red-light);border-bottom-color:var(--red-border)">
+        <div class="result-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div>
+        <div class="result-title" style="color:var(--red)">Note read &mdash; permanently destroyed</div>
+      </div>
+      <div style="padding:1.1rem 1.25rem">
+        <div class="note-display" id="note-text"></div>
+        <div class="destroyed-notice">This note has been permanently deleted. No copy exists anywhere.</div>
+        <div class="read-actions">
+          <button class="btn btn-green" id="copy-note-btn">Copy Text</button>
+          <a href="index.html" class="btn btn-outline">Create Your Own Note</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot ad-banner">Advertisement</div>
+
+    <div class="content-card">
+      <h2>Want to send a private note?</h2>
+      <p>SecretNote lets you share encrypted messages that self-destruct after being read. Free, instant, no account required.</p>
+      <a href="index.html" class="btn btn-primary" style="margin-top:.5rem;display:inline-flex">Create a Free SecretNote</a>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/engine.js"></script>
+<script src="js/layout.js"></script>
+<script>
+(function(){
+  var _id      = null;
+  var _keyHex  = null;
+  var _noteData= null;
+  var _memText = null; // for pw-protected notes that were already decrypted
+  var _cdTimer = null;
+
+  function show(id){
+    ['s-loading','s-gone','s-expired','s-confirm','s-revealed'].forEach(function(s){
+      document.getElementById(s).style.display = (s===id) ? '' : 'none';
+    });
+  }
+
+  function startReadCountdown(expiresAt){
+    var wrap = document.getElementById('read-countdown');
+    var txt  = document.getElementById('read-countdown-text');
+    if(!expiresAt){ wrap.style.display='none'; return; }
+    wrap.style.display='';
+    function tick(){
+      var left = GN.formatTimeLeft(expiresAt);
+      txt.textContent = left;
+      if(left==='Expired'){ clearInterval(_cdTimer); show('s-expired'); }
+    }
+    tick();
+    _cdTimer = setInterval(tick,1000);
+  }
+
+  async function init(){
+    var parsed = GN.parseUrl();
+    _id     = parsed.id;
+    _keyHex = parsed.keyHex;
+
+    if(!_id || !_keyHex){ show('s-gone'); return; }
+
+    var note = GN.peekNote(_id);
+    if(!note)          { show('s-gone');    return; }
+    if(note.expired)   { show('s-expired'); return; }
+
+    _noteData = note;
+
+    // Update confirm meta
+    var metaExpiry = document.getElementById('meta-expiry');
+    if(note.expiresAt){
+      metaExpiry.textContent = 'Expires: ' + new Date(note.expiresAt).toLocaleString();
+    } else {
+      metaExpiry.textContent = 'Destroyed immediately after reading';
+    }
+
+    startReadCountdown(note.expiresAt);
+
+    if(note.noConfirm){
+      await doReveal();
+    } else {
+      show('s-confirm');
+    }
+  }
+
+  async function doReveal(){
+    var btn = document.getElementById('reveal-btn');
+    if(btn){ btn.disabled=true; btn.textContent='Decrypting...'; }
+
+    try {
+      // If we already decrypted (pw check loop), use _memText
+      if(_memText !== null){
+        displayNote(_memText);
+        return;
+      }
+
+      var result = await GN.readAndDestroy(_id, _keyHex);
+      if(!result)         { show('s-gone');    return; }
+      if(result.expired)  { show('s-expired'); return; }
+
+      var text = result.text;
+
+      // Password check
+      if(text.startsWith('PWD:')){
+        var parts    = text.split('\n---CONTENT---\n');
+        var storedPw = parts[0].replace('PWD:','');
+        var content  = parts[1] || '';
+        var entered  = document.getElementById('pw-input') ? document.getElementById('pw-input').value : '';
+
+        if(!entered){
+          // Show pw field, keep text in memory
+          _memText = text;
+          document.getElementById('pw-field').style.display = '';
+          document.getElementById('meta-pw').textContent = 'Password protected';
+          show('s-confirm');
+          if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
+          return;
+        }
+        if(entered !== storedPw){
+          document.getElementById('pw-error').style.display='';
+          _memText = text;
+          show('s-confirm');
+          if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
+          return;
+        }
+        text = content;
+      } else if(_memText && _memText.startsWith('PWD:')){
+        var parts2    = _memText.split('\n---CONTENT---\n');
+        var storedPw2 = parts2[0].replace('PWD:','');
+        var content2  = parts2[1] || '';
+        var entered2  = document.getElementById('pw-input').value;
+        if(entered2 !== storedPw2){
+          document.getElementById('pw-error').style.display='';
+          show('s-confirm');
+          if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
+          return;
+        }
+        text = content2;
+      }
+
+      if(_cdTimer) clearInterval(_cdTimer);
+      displayNote(text);
+
+    } catch(err){
+      show('s-gone');
+    }
+  }
+
+  function displayNote(text){
+    document.getElementById('note-text').textContent = text;
+    document.getElementById('copy-note-btn').addEventListener('click', function(){
+      copyText(text, 'Note text copied');
+    });
+    show('s-revealed');
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var revBtn = document.getElementById('reveal-btn');
+    if(revBtn) revBtn.addEventListener('click', doReveal);
+    var pwInp = document.getElementById('pw-input');
+    if(pwInp) pwInp.addEventListener('keydown', function(e){ if(e.key==='Enter') doReveal(); });
+    init();
+  });
+})();
+</script>
+</body>
+</html>

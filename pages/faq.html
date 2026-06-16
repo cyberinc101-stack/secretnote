@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SecretNote FAQ — Self-Destructing Encrypted Notes Questions Answered</title>
+<meta name="description" content="Frequently asked questions about SecretNote self-destructing notes. Privacy, security, expiry times, password protection, and how encrypted notes work.">
+<meta name="keywords" content="self destructing note FAQ,encrypted note questions,how does privnote work,burn after reading note help,one time secret questions,ghostnote FAQ">
+<link rel="canonical" href="https://yourdomain.com/pages/faq.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/vars.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/layout.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="main-content">
+<div class="main-wrap">
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);margin-bottom:.6rem">Help &amp; FAQ</div>
+    <h1 style="font-size:clamp(1.4rem,4vw,2rem);letter-spacing:-.02em;margin-bottom:.5rem">Frequently Asked Questions</h1>
+    <p style="color:var(--text-muted)">Everything you need to know about sending self-destructing encrypted notes with SecretNote.</p>
+  </div>
+  <div class="ad-slot ad-leaderboard">Advertisement</div>
+  <div class="content-section">
+    <h2>General Questions</h2>
+    <div class="faq-item"><div class="faq-q">What is a self-destructing note?</div><div class="faq-a"><p>A self-destructing note is a message that automatically deletes itself after being read — or after a set time limit. Unlike email or text messages which remain in inboxes indefinitely, a SecretNote exists only until the moment your recipient reads it, then it is gone forever.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Is SecretNote completely free?</div><div class="faq-a"><p>Yes. SecretNote is completely free with no account required, no storage limits per note, and no paid tiers. The site is supported by advertising.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Do I need to create an account?</div><div class="faq-a"><p>No. SecretNote requires no account, no email, and no personal information of any kind. Just write, create, and share.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Who uses self-destructing notes?</div><div class="faq-a"><p>SecretNote is used by professionals sharing passwords and credentials, developers sharing API keys and tokens, businesses sending confidential information, journalists protecting sources, individuals sharing private personal messages, and anyone who needs to share sensitive information without leaving a permanent digital trail.</p></div></div>
+
+    <h2 style="margin-top:1.5rem">Privacy &amp; Security</h2>
+    <div class="faq-item"><div class="faq-q">Does SecretNote store my notes on a server?</div><div class="faq-a"><p>Encrypted note data is stored in your browser's localStorage — not on any external server. The encrypted ciphertext has no value without the decryption key, which only exists in the shareable URL fragment. Even if someone gained access to the storage, they cannot read the note without the key.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Can SecretNote read my notes?</div><div class="faq-a"><p>No. Your note is encrypted in your browser before anything is stored. The decryption key exists only in the URL you share. SecretNote never has access to the key and therefore can never decrypt your notes.</p></div></div>
+    <div class="faq-item"><div class="faq-q">What encryption does SecretNote use?</div><div class="faq-a"><p>SecretNote uses AES-256-GCM encryption — the same standard used by banks, governments, and military organisations worldwide. Keys are generated using the Web Crypto API's cryptographically secure random number generator.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Can someone intercept the note in transit?</div><div class="faq-a"><p>The note itself is never transmitted — only the encrypted ciphertext is stored locally. The decryption key is in the URL fragment, which most browsers do not include in server requests. However, some chat platforms or link-preview services may process the full URL. For maximum security, share links through channels that do not generate link previews.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Can someone take a screenshot of my note?</div><div class="faq-a"><p>SecretNote cannot technically prevent screenshots or photos of the screen. Our protection is against digital storage and forwarding — the note cannot be forwarded as a link because it no longer exists after reading. For truly sensitive information, keep notes brief and use the password protection feature.</p></div></div>
+
+    <h2 style="margin-top:1.5rem">Expiry &amp; Timing</h2>
+    <div class="faq-item"><div class="faq-q">What expiry options are available?</div><div class="faq-a"><p>You can set a note to expire: after reading only (default), after 1 minute, 5 minutes, 10 minutes, 20 minutes, 30 minutes, 1 hour, 24 hours, 7 days — or enter any custom duration. Custom durations can be set in minutes, hours, or days up to 365 days.</p></div></div>
+    <div class="faq-item"><div class="faq-q">What happens if the link expires before the recipient reads it?</div><div class="faq-a"><p>The note is automatically deleted and the recipient sees an "expired" message. They cannot tell whether the note was read by someone else or simply expired. For time-sensitive credentials, choose a short expiry window and let your recipient know to open it promptly.</p></div></div>
+    <div class="faq-item"><div class="faq-q">Can I extend the expiry time after creating a note?</div><div class="faq-a"><p>No. Once a note is created, its expiry cannot be changed. If you need a longer expiry, create a new note with the desired time limit.</p></div></div>
+    <div class="faq-item"><div class="faq-q">What is "Destroy immediately on open"?</div><div class="faq-a"><p>By default, recipients see a confirmation screen before the note is revealed — giving them a chance to prepare. If you check "Skip confirmation", the note is decrypted and destroyed the moment the link is opened, with no confirmation step. Use this when you want instant destruction.</p></div></div>
+
+    <h2 style="margin-top:1.5rem">Passwords &amp; Options</h2>
+    <div class="faq-item"><div class="faq-q">Should I password-protect my notes?</div><div class="faq-a"><p>For highly sensitive information, yes. Even though notes are already encrypted, adding a password provides a second layer of protection — if the link is accidentally shared with the wrong person, they cannot read the note without the password. Share the password through a completely separate channel (e.g., by phone if the link was sent by email).</p></div></div>
+    <div class="faq-item"><div class="faq-q">What if I forget to read my own note link?</div><div class="faq-a"><p>The note is stored in the browser where you created it until it is opened or expires. If you need to destroy it before the recipient reads it, use the "Destroy Now" button on the link creation screen. Once you navigate away and lose the link, there is no way to recover or destroy the note manually — it will expire on schedule.</p></div></div>
+  </div>
+  <div style="text-align:center;margin:2rem 0">
+    <a href="../index.html" class="btn btn-primary" style="display:inline-flex;font-size:1rem;padding:.8rem 2rem">🔒 Create a SecretNote →</a>
+  </div>
+</div>
+</main>
+<div id="site-footer"></div>
+<script src="../js/layout.js"></script>
+</body>
+</html>

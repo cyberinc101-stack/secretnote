@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How SecretNote Works — Encrypted Self-Destructing Notes Explained</title>
+<meta name="description" content="Learn exactly how SecretNote's self-destructing encrypted notes work. AES-256 encryption, client-side processing, time-based expiry, and zero server knowledge explained.">
+<meta name="keywords" content="how self destructing notes work,encrypted note explained,AES 256 browser encryption,privnote how it works,one time secret note,end to end encrypted message">
+<link rel="canonical" href="https://yourdomain.com/pages/how-it-works.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/vars.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/layout.css">
+<style>
+.step-grid{display:flex;flex-direction:column;gap:1.1rem;margin:1.25rem 0;}
+.step{
+  display:flex;gap:1rem;align-items:flex-start;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:1rem 1.1rem;
+}
+.step-num{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--primary),#A855F7);
+  color:#fff;font-weight:800;font-size:.95rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.step-body h3{font-size:.92rem;margin-bottom:.2rem;}
+.step-body p{font-size:.83rem;margin:0;color:var(--text-2);}
+.tech-table{width:100%;border-collapse:collapse;font-size:.83rem;margin:1rem 0;}
+.tech-table th{background:var(--surface2);color:var(--text-muted);padding:.6rem .9rem;text-align:left;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;}
+.tech-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);color:var(--text-2);}
+.tech-table td strong{color:var(--text);}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="main-content">
+<div class="main-wrap">
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);margin-bottom:.6rem">How It Works</div>
+    <h1 style="font-size:clamp(1.5rem,4vw,2.1rem);letter-spacing:-.02em;margin-bottom:.5rem">The Technology Behind SecretNote</h1>
+    <p style="color:var(--text-muted)">SecretNote is built on three principles: strong encryption, zero server knowledge, and guaranteed destruction.</p>
+  </div>
+
+  <div class="ad-slot ad-leaderboard">Advertisement</div>
+
+  <div class="content-section">
+    <h2>Step by Step: What Happens When You Create a Note</h2>
+    <div class="step-grid">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h3>You Write Your Note</h3><p>Your note stays in your browser. Nothing is sent to any server at this point.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h3>Browser Generates an Encryption Key</h3><p>Your browser creates a random 256-bit AES key using the Web Crypto API — a cryptographically secure random number generator built into every modern browser.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h3>Note Is Encrypted Locally</h3><p>Your browser encrypts the note text using AES-256-GCM with a random 96-bit IV. The result is an unreadable blob of encrypted bytes.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h3>Encrypted Note Gets an ID and Is Stored</h3><p>The encrypted blob is saved to browser localStorage under a random 12-byte ID. The key used to encrypt it is NOT stored anywhere — only in your URL.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h3>A Link Is Generated With the Key in the Fragment</h3><p>Your link looks like: <code>secretnote.com/read.html?id=abc123#<strong>decryptionkeyhere</strong></code>. The part after <code>#</code> is the decryption key. Browser URL fragments are never sent to servers — only your recipient's browser sees it.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><h3>Recipient Opens the Link</h3><p>Their browser reads the encrypted note from storage using the ID, then uses the key from the URL fragment to decrypt it locally. The decryption happens entirely in their browser.</p></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-body"><h3>Note Is Destroyed Immediately</h3><p>The moment the note is decrypted and displayed, it is deleted from storage. No copy remains anywhere. Anyone clicking the link again sees "Note Not Found."</p></div></div>
+      <div class="step"><div class="step-num">8</div><div class="step-body"><h3>Time Expiry (if set)</h3><p>If you set a time limit (1 minute, 5 minutes, etc.), the expiry timestamp is stored with the note. Any attempt to open an expired note results in immediate deletion and an expiry message.</p></div></div>
+    </div>
+  </div>
+
+  <div class="content-section" style="margin-top:1.25rem">
+    <h2>Technical Specifications</h2>
+    <table class="tech-table">
+      <thead><tr><th>Feature</th><th>Implementation</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Encryption algorithm</strong></td><td>AES-256-GCM (Galois/Counter Mode)</td></tr>
+        <tr><td><strong>Key size</strong></td><td>256 bits (32 bytes)</td></tr>
+        <tr><td><strong>IV size</strong></td><td>96 bits (12 bytes) — random per note</td></tr>
+        <tr><td><strong>Key generation</strong></td><td>Web Crypto API <code>getRandomValues()</code></td></tr>
+        <tr><td><strong>Storage</strong></td><td>Browser localStorage (encrypted data only)</td></tr>
+        <tr><td><strong>Key transmission</strong></td><td>URL fragment only — never reaches any server</td></tr>
+        <tr><td><strong>Server knowledge</strong></td><td>Zero — server only sees encrypted ciphertext</td></tr>
+        <tr><td><strong>Destruction</strong></td><td>On read, on expiry, or manual</td></tr>
+        <tr><td><strong>Max note size</strong></td><td>50,000 characters</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-section" style="margin-top:1.25rem">
+    <h2>Why Is the Key in the URL Fragment?</h2>
+    <p>The URL fragment (the <code>#key</code> part) is a privacy feature of the web: it is processed entirely by your browser and is never included in HTTP requests to servers. When you share a link like <code>secretnote.com/read.html?id=abc#KEY</code>, our server only sees <code>secretnote.com/read.html?id=abc</code> — never the key.</p>
+    <p>This means even if someone had full access to our server logs, they could not decrypt any notes. The key only ever exists in your URL and the recipient's browser memory during decryption.</p>
+
+    <h3>Important Limitation</h3>
+    <p>Be careful <em>how</em> you share the link. If you paste it into a chat app that generates link previews, the preview request might reveal the full URL (including the fragment in some implementations). For maximum security, share the link directly rather than through preview-generating platforms.</p>
+  </div>
+
+  <div style="text-align:center;margin:2rem 0">
+    <a href="../index.html" class="btn btn-primary" style="display:inline-flex;font-size:1rem;padding:.8rem 2rem">🔒 Create Your First SecretNote →</a>
+  </div>
+</div>
+</main>
+<div id="site-footer"></div>
+<script src="../js/layout.js"></script>
+</body>
+</html>
