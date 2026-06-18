@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security Guides & Resources — SecretNote</title>
+<meta name="description" content="Guides on sending passwords securely, sharing API keys, burn-after-reading messages, self-destructing notes, and encrypted credential sharing.">
+<meta name="keywords" content="send password securely,share api key,self destructing note,burn after reading,encrypted note,one time secret">
+<link rel="canonical" href="https://secretnote-six.vercel.app/seo/">
+<meta property="og:title" content="Security Guides — SecretNote">
+<meta property="og:description" content="Learn how to share passwords, API keys, and sensitive information without creating a permanent security liability.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/vars.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1SDFZ8XMTH"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-1SDFZ8XMTH");</script>
+<style>
+.seo-hero{background:var(--surface);border-bottom:1px solid var(--border);padding:2.5rem 1rem 2rem}
+.seo-hero .container{max-width:var(--max-w);margin:0 auto}
+.seo-badge{display:inline-block;background:var(--primary-light);color:var(--primary);border:1px solid var(--primary-border);border-radius:99px;font-size:.72rem;font-weight:600;letter-spacing:.04em;padding:.25rem .75rem;text-transform:uppercase;margin-bottom:1rem}
+.seo-hero h1{font-size:clamp(1.6rem,4vw,2.1rem);font-weight:800;color:var(--text);line-height:1.2;margin:0 0 .6rem}
+.seo-hero p{color:var(--text-muted);font-size:.95rem;line-height:1.6;margin:0}
+.guide-grid{max-width:var(--max-w);margin:2rem auto;padding:0 1rem 4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.guide-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.35rem;text-decoration:none;display:block;transition:border-color var(--transition),box-shadow var(--transition)}
+.guide-card:hover{border-color:var(--primary);box-shadow:var(--shadow)}
+.guide-tag{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--primary);margin-bottom:.5rem}
+.guide-title{font-size:1rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:.45rem}
+.guide-desc{font-size:.85rem;color:var(--text-muted);line-height:1.55}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="seo-hero">
+  <div class="container">
+    <div class="seo-badge">Security Guides</div>
+    <h1>How to Share Sensitive Information Safely</h1>
+    <p>Practical guides on sending passwords, API keys, and private messages without leaving a permanent trail.</p>
+  </div>
+</div>
+
+<div class="guide-grid">
+
+  <a class="guide-card" href="send-password-securely-online.html">
+    <div class="guide-tag">Passwords</div>
+    <div class="guide-title">How to Send a Password Securely Online</div>
+    <div class="guide-desc">Why email and chat are risky, and how a self-destructing encrypted link eliminates the exposure permanently.</div>
+  </a>
+
+  <a class="guide-card" href="share-api-key-safely.html">
+    <div class="guide-tag">Developer Security</div>
+    <div class="guide-title">How to Share an API Key Safely</div>
+    <div class="guide-desc">API keys pasted into Slack stay there forever. Here is the right way to hand off tokens, secrets, and credentials.</div>
+  </a>
+
+  <a class="guide-card" href="share-credentials-safely.html">
+    <div class="guide-tag">Credentials</div>
+    <div class="guide-title">How to Share Login Credentials Safely</div>
+    <div class="guide-desc">Best practices for handing off usernames, passwords, and account access without creating a long-term security risk.</div>
+  </a>
+
+  <a class="guide-card" href="burn-after-reading-message.html">
+    <div class="guide-tag">Ephemeral Messaging</div>
+    <div class="guide-title">Burn After Reading — Messages That Destroy Themselves</div>
+    <div class="guide-desc">Send a message that permanently disappears the moment it is read. No archive, no backup, no trace.</div>
+  </a>
+
+  <a class="guide-card" href="one-time-secret-link.html">
+    <div class="guide-tag">One-Time Links</div>
+    <div class="guide-title">One-Time Secret Link Generator</div>
+    <div class="guide-desc">Generate a link that works exactly once. After the first view, the content is permanently deleted and the link is dead.</div>
+  </a>
+
+  <a class="guide-card" href="self-destructing-note-no-account.html">
+    <div class="guide-tag">No Account Required</div>
+    <div class="guide-title">Self-Destructing Notes — No Signup Needed</div>
+    <div class="guide-desc">Send private encrypted notes instantly. No email address, no profile, nothing stored about you.</div>
+  </a>
+
+  <a class="guide-card" href="encrypted-note-browser.html">
+    <div class="guide-tag">How It Works</div>
+    <div class="guide-title">Encrypted Notes — Your Browser Does the Encryption</div>
+    <div class="guide-desc">A clear explanation of how AES-256-GCM browser-side encryption keeps your note private even from the server.</div>
+  </a>
+
+  <a class="guide-card" href="privnote-alternative.html">
+    <div class="guide-tag">Comparison</div>
+    <div class="guide-title">Best Free Privnote Alternative</div>
+    <div class="guide-desc">How SecretNote compares to Privnote on encryption model, features, and privacy. Side-by-side breakdown.</div>
+  </a>
+
+</div>
+
+<div id="site-footer"></div>
+<script src="../js/layout.js"></script>
+</body>
+</html>

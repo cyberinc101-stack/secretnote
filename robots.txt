@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /read.html
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://secretnote-six.vercel.app//sitemap.xml

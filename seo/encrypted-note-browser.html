@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Encrypted Notes Stored in Your Browser Only — How It Works</title>
+<meta name="description" content="SecretNote encrypts your note in your browser using AES-256-GCM. The decryption key never leaves your device. Learn exactly how browser-side encryption keeps your notes private.">
+<meta name="keywords" content="encrypted note browser only,browser side encryption note,note encrypted in browser,client side encrypted note,aes256 note browser,zero knowledge note">
+<link rel="canonical" href="https://secretnote-six.vercel.app/seo/encrypted-note-browser.html">
+<meta property="og:title" content="Encrypted Notes Stored in Your Browser Only — SecretNote">
+<meta property="og:description" content="Your note is encrypted in your browser before anything leaves your device. The decryption key never touches our server.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Encrypted Notes Stored in Your Browser Only — How It Works","description":"A technical explanation of how SecretNote uses browser-side AES-256-GCM encryption to keep notes private even from the server.","url":"https://secretnote-six.vercel.app/seo/encrypted-note-browser.html","publisher":{"@type":"Organization","name":"SecretNote"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/vars.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1SDFZ8XMTH"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-1SDFZ8XMTH");</script>
+<style>
+.seo-hero{background:var(--surface);border-bottom:1px solid var(--border);padding:2.5rem 1rem 2rem}
+.seo-hero .container{max-width:var(--max-w);margin:0 auto}
+.seo-badge{display:inline-block;background:var(--primary-light);color:var(--primary);border:1px solid var(--primary-border);border-radius:99px;font-size:.72rem;font-weight:600;letter-spacing:.04em;padding:.25rem .75rem;text-transform:uppercase;margin-bottom:1rem}
+.seo-hero h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text);line-height:1.2;margin:0 0 .75rem}
+.seo-hero p{color:var(--text-muted);font-size:1rem;line-height:1.6;margin:0}
+.seo-body{max-width:var(--max-w);margin:0 auto;padding:2rem 1rem 4rem}
+.seo-body h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2rem 0 .6rem;padding-top:.5rem}
+.seo-body h3{font-size:1rem;font-weight:600;color:var(--text-2);margin:1.5rem 0 .4rem}
+.seo-body p{color:var(--text-2);line-height:1.7;margin:.5rem 0 1rem;font-size:.95rem}
+.seo-body ul,.seo-body ol{color:var(--text-2);line-height:1.7;font-size:.95rem;padding-left:1.4rem;margin:.5rem 0 1rem}
+.seo-body li{margin-bottom:.35rem}
+.seo-body code{font-family:var(--font-mono);font-size:.82rem;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.1em .35em;color:var(--text)}
+.tech-flow{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem;margin:1rem 0}
+.tech-flow-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;font-size:.875rem;color:var(--text-2)}
+.tech-flow-row:last-child{margin-bottom:0}
+.flow-icon{width:2rem;height:2rem;border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.flow-browser{background:var(--primary-light);border:1px solid var(--primary-border)}
+.flow-server{background:var(--bg2);border:1px solid var(--border)}
+.flow-safe{background:var(--green-light);border:1px solid var(--green-border)}
+.flow-arrow{color:var(--text-muted);font-size:.8rem;margin:0 .25rem}
+.cta-box{background:var(--primary-light);border:1px solid var(--primary-border);border-radius:var(--radius);padding:1.5rem;text-align:center;margin:2.5rem 0}
+.cta-box p{color:var(--text-2);margin-bottom:1rem;font-size:.95rem}
+.cta-box .btn{display:inline-block;background:var(--primary);color:#fff;padding:.65rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.95rem;text-decoration:none;transition:background var(--transition)}
+.cta-box .btn:hover{background:var(--primary-dark)}
+.related-links{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.related-links h2{font-size:1rem;font-weight:600;color:var(--text-muted);margin-bottom:.75rem}
+.related-links ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.related-links a{display:inline-block;background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:.3rem .85rem;font-size:.82rem;color:var(--primary);text-decoration:none;transition:border-color var(--transition)}
+.related-links a:hover{border-color:var(--primary)}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="seo-hero">
+  <div class="container">
+    <div class="seo-badge">How It Works</div>
+    <h1>Encrypted Notes — Your Browser Does the Encryption</h1>
+    <p>Your note is encrypted before it leaves your device. The decryption key never touches our server. Here is exactly how it works.</p>
+  </div>
+</div>
+
+<main>
+<div class="seo-body">
+
+  <p>Most note-sharing services encrypt data <em>in transit</em> (HTTPS) and <em>at rest</em> (disk encryption). That sounds secure, but it means the service can still read your notes — the server decrypts them whenever it needs to display them. SecretNote takes a different approach: your note is encrypted entirely in your browser, and the decryption key never reaches the server at all.</p>
+
+  <h2>Server-side vs browser-side encryption</h2>
+  <p>The distinction is critical:</p>
+  <ul>
+    <li><strong>Server-side encryption:</strong> The service encrypts your data using a key it controls. The server can decrypt your data any time. Employees, law enforcement requests, and attackers who compromise the server can all access your notes.</li>
+    <li><strong>Browser-side (client-side) encryption:</strong> Your browser generates an encryption key, encrypts your data locally, and sends only ciphertext to the server. The server never sees the key and cannot decrypt the data — ever.</li>
+  </ul>
+  <p>SecretNote uses browser-side encryption exclusively.</p>
+
+  <h2>The encryption process, step by step</h2>
+  <div class="tech-flow">
+    <div class="tech-flow-row">
+      <div class="flow-icon flow-browser">📝</div>
+      <span><strong>Your browser</strong> generates a random 256-bit AES key using the Web Crypto API.</span>
+    </div>
+    <div class="tech-flow-row">
+      <div class="flow-icon flow-browser">🔒</div>
+      <span><strong>Your browser</strong> encrypts your note text with AES-256-GCM using that key. The result is unreadable ciphertext.</span>
+    </div>
+    <div class="tech-flow-row">
+      <div class="flow-icon flow-server">📤</div>
+      <span><strong>Only the ciphertext</strong> is sent to the SecretNote server — the key stays in your browser.</span>
+    </div>
+    <div class="tech-flow-row">
+      <div class="flow-icon flow-safe">🔗</div>
+      <span><strong>The key is embedded</strong> in the URL fragment (<code>#k=...</code>) of the one-time link you receive.</span>
+    </div>
+    <div class="tech-flow-row">
+      <div class="flow-icon flow-browser">🌐</div>
+      <span><strong>When the recipient opens the link,</strong> their browser reads the key from the fragment — which is never sent in HTTP requests — and decrypts the note locally.</span>
+    </div>
+    <div class="tech-flow-row">
+      <div class="flow-icon flow-safe">💥</div>
+      <span><strong>The ciphertext is deleted</strong> from the server the moment the note is read. Nothing remains.</span>
+    </div>
+  </div>
+
+  <h2>Why the URL fragment is the key insight</h2>
+  <p>The URL fragment — everything after the <code>#</code> symbol — is a browser-only concept. When a browser requests a URL, the fragment is stripped before the HTTP request is sent. This is defined in the HTTP specification. It means:</p>
+  <ul>
+    <li>Our server never receives the decryption key</li>
+    <li>Network monitoring tools (proxies, ISP logging) never see the key</li>
+    <li>Server access logs never record the key</li>
+    <li>No intermediary (CDN, load balancer, firewall) ever sees the key</li>
+  </ul>
+  <p>The key exists only in your browser, the URL you copy, and the recipient's browser when they open the link. After the note is read and deleted, the key is gone everywhere.</p>
+
+  <h2>AES-256-GCM: what makes it strong</h2>
+  <p>AES-256-GCM (Galois/Counter Mode) is the encryption standard used by governments, banks, and security-critical applications worldwide. The "256" refers to the key length — 2²⁵⁶ possible keys, a number so large that brute-forcing it is computationally impossible with any hardware that could ever be built. The "GCM" mode adds authentication — any tampering with the encrypted data is detected before decryption, preventing certain classes of attack.</p>
+
+  <h2>What the server actually stores</h2>
+  <p>When you create a note, the server receives and stores:</p>
+  <ul>
+    <li>A random note ID (to identify the blob)</li>
+    <li>The AES-256-GCM encrypted ciphertext (unreadable without the key)</li>
+    <li>An expiry timestamp (if you set one)</li>
+    <li>A flag for whether confirmation is required on open</li>
+  </ul>
+  <p>That is all. No username, no IP linked to note content, no decryption key, no plaintext — not even a hash of the plaintext. The server is a temporary holding container for encrypted data it cannot read.</p>
+
+  <h2>What this means for your privacy</h2>
+  <ul>
+    <li>SecretNote employees cannot read your notes — the infrastructure does not allow it</li>
+    <li>A data breach of our server exposes only unreadable ciphertext</li>
+    <li>A court order served on SecretNote could not produce your note content — we do not have it</li>
+    <li>There is no master key, no key escrow, and no key recovery — the key lives and dies with the URL</li>
+  </ul>
+
+  <div class="cta-box">
+    <p>Try browser-side encrypted notes now — the encryption happens right in your browser, for free.</p>
+    <a href="../index.html" class="btn">Create an Encrypted Note →</a>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+  <h3>Is the Web Crypto API trustworthy?</h3>
+  <p>The Web Crypto API (<code>window.crypto.subtle</code>) is built into every modern browser and is the same cryptographic foundation used by password managers, secure messaging apps, and banking sites. It is not something SecretNote wrote — it is a standardised browser primitive audited and maintained by browser vendors.</p>
+
+  <h3>Could SecretNote's JavaScript be compromised to send the key?</h3>
+  <p>This is a valid theoretical concern with any client-side encryption system. If a malicious actor could replace the JavaScript served by SecretNote, they could in principle intercept keys before encryption. Mitigations include checking the open-source code, using browser extensions that block script changes, and for the highest-stakes uses, a self-hosted setup.</p>
+
+  <h3>What happens if I lose the link?</h3>
+  <p>The link is the only thing that contains the decryption key. If you lose it, the note is unrecoverable — even by us. Save the link immediately after creating a note if there is any chance you will need to verify it was received.</p>
+
+  <div class="related-links">
+    <h2>Related guides</h2>
+    <ul>
+      <li><a href="send-password-securely-online.html">How to send a password securely online</a></li>
+      <li><a href="one-time-secret-link.html">One-time secret link generator</a></li>
+      <li><a href="self-destructing-note-no-account.html">Self-destructing notes — no account needed</a></li>
+      <li><a href="share-api-key-safely.html">How to share an API key safely</a></li>
+      <li><a href="privnote-alternative.html">Privnote alternative</a></li>
+    </ul>
+  </div>
+
+</div>
+</main>
+
+<div id="site-footer"></div>
+<script src="../js/layout.js"></script>
+</body>
+</html>

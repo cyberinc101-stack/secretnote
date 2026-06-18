@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://yourdomain.com/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://yourdomain.com/pages/how-it-works.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://yourdomain.com/pages/faq.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://yourdomain.com/pages/privacy.html</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
-  <url><loc>https://yourdomain.com/pages/terms.html</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+
+  <!-- Core pages -->
+  <url><loc>https://secretnote-six.vercel.app/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/pages/how-it-works.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/pages/faq.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/pages/privacy.html</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/pages/terms.html</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+
+  <!-- SEO hub -->
+  <url><loc>https://secretnote-six.vercel.app/seo/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+
+  <!-- SEO long-tail keyword pages -->
+  <url><loc>https://secretnote-six.vercel.app/seo/send-password-securely-online.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/seo/share-api-key-safely.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/seo/share-credentials-safely.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/seo/burn-after-reading-message.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/seo/one-time-secret-link.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/seo/self-destructing-note-no-account.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/seo/encrypted-note-browser.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://secretnote-six.vercel.app/seo/privnote-alternative.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+
 </urlset>

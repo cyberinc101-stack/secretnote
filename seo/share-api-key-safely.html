@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Share an API Key Safely — SecretNote</title>
+<meta name="description" content="Never paste an API key into Slack or email. Learn how to share API keys, tokens, and secrets safely using a self-destructing encrypted link that deletes itself after one view.">
+<meta name="keywords" content="share api key safely,how to send api key securely,share secret key developer,send api token without email,secure api credential sharing">
+<link rel="canonical" href="https://secretnote-six.vercel.app/seo/share-api-key-safely.html">
+<meta property="og:title" content="How to Share an API Key Safely">
+<meta property="og:description" content="API keys pasted into Slack or email stay there forever. Use a self-destructing encrypted note instead.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Share an API Key Safely","description":"The right way for developers and teams to share API keys, tokens, and secrets without leaving a permanent trail.","url":"https://secretnote-six.vercel.app/seo/share-api-key-safely.html","publisher":{"@type":"Organization","name":"SecretNote"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/vars.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1SDFZ8XMTH"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-1SDFZ8XMTH");</script>
+<style>
+.seo-hero{background:var(--surface);border-bottom:1px solid var(--border);padding:2.5rem 1rem 2rem}
+.seo-hero .container{max-width:var(--max-w);margin:0 auto}
+.seo-badge{display:inline-block;background:var(--primary-light);color:var(--primary);border:1px solid var(--primary-border);border-radius:99px;font-size:.72rem;font-weight:600;letter-spacing:.04em;padding:.25rem .75rem;text-transform:uppercase;margin-bottom:1rem}
+.seo-hero h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text);line-height:1.2;margin:0 0 .75rem}
+.seo-hero p{color:var(--text-muted);font-size:1rem;line-height:1.6;margin:0}
+.seo-body{max-width:var(--max-w);margin:0 auto;padding:2rem 1rem 4rem}
+.seo-body h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2rem 0 .6rem;padding-top:.5rem}
+.seo-body h3{font-size:1rem;font-weight:600;color:var(--text-2);margin:1.5rem 0 .4rem}
+.seo-body p{color:var(--text-2);line-height:1.7;margin:.5rem 0 1rem;font-size:.95rem}
+.seo-body ul,.seo-body ol{color:var(--text-2);line-height:1.7;font-size:.95rem;padding-left:1.4rem;margin:.5rem 0 1rem}
+.seo-body li{margin-bottom:.35rem}
+.seo-body code{font-family:var(--font-mono);font-size:.82rem;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.1em .35em;color:var(--text)}
+.warning-box{background:var(--amber-light);border:1px solid var(--amber-border);border-radius:var(--radius-sm);padding:1rem 1.1rem;margin:1rem 0;font-size:.9rem;color:var(--text-2)}
+.warning-box strong{color:var(--amber);display:block;margin-bottom:.25rem}
+.step-list{counter-reset:steps;list-style:none;padding:0;margin:1rem 0}
+.step-list li{counter-increment:steps;display:flex;gap:.85rem;margin-bottom:1rem;align-items:flex-start}
+.step-list li::before{content:counter(steps);background:var(--primary);color:#fff;border-radius:50%;width:1.6rem;height:1.6rem;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:.15rem}
+.cta-box{background:var(--primary-light);border:1px solid var(--primary-border);border-radius:var(--radius);padding:1.5rem;text-align:center;margin:2.5rem 0}
+.cta-box p{color:var(--text-2);margin-bottom:1rem;font-size:.95rem}
+.cta-box .btn{display:inline-block;background:var(--primary);color:#fff;padding:.65rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.95rem;text-decoration:none;transition:background var(--transition)}
+.cta-box .btn:hover{background:var(--primary-dark)}
+.use-case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.75rem;margin:1rem 0}
+.use-case-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.9rem 1rem;font-size:.85rem;color:var(--text-2)}
+.use-case-card strong{display:block;color:var(--text);font-size:.8rem;margin-bottom:.2rem}
+.related-links{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.related-links h2{font-size:1rem;font-weight:600;color:var(--text-muted);margin-bottom:.75rem}
+.related-links ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.related-links a{display:inline-block;background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:.3rem .85rem;font-size:.82rem;color:var(--primary);text-decoration:none;transition:border-color var(--transition)}
+.related-links a:hover{border-color:var(--primary)}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="seo-hero">
+  <div class="container">
+    <div class="seo-badge">Developer Security</div>
+    <h1>How to Share an API Key Safely</h1>
+    <p>API keys and tokens pasted into Slack, email, or chat stay in those logs forever. Here is a better way.</p>
+  </div>
+</div>
+
+<main>
+<div class="seo-body">
+
+  <p>Sharing API keys is one of the most common security mistakes in development teams. A key gets pasted into Slack to onboard a new hire, or emailed to a contractor, and it lives in that message thread indefinitely — searchable, accessible to admins, and exposed in any future breach of that platform.</p>
+
+  <div class="warning-box">
+    <strong>⚠ The hidden danger of Slack and email</strong>
+    Security audits frequently find API keys, tokens, and database passwords scattered across years of Slack history. A single compromised account gives an attacker access to all of it.
+  </div>
+
+  <h2>What types of secrets this applies to</h2>
+  <div class="use-case-grid">
+    <div class="use-case-card"><strong>API Keys</strong>Stripe, OpenAI, Twilio, SendGrid, AWS, Google Cloud, and any third-party service key.</div>
+    <div class="use-case-card"><strong>Access Tokens</strong>OAuth tokens, personal access tokens, GitHub tokens, and bearer tokens.</div>
+    <div class="use-case-card"><strong>Database Credentials</strong>Connection strings, usernames, passwords for staging or production databases.</div>
+    <div class="use-case-card"><strong>.env Secrets</strong><code>JWT_SECRET</code>, <code>SESSION_KEY</code>, <code>ENCRYPTION_KEY</code> values for new environments.</div>
+    <div class="use-case-card"><strong>SSH Keys / Passphrases</strong>Private key passphrases and deployment key content for servers and CI/CD.</div>
+    <div class="use-case-card"><strong>Webhook Secrets</strong>Signing secrets used to verify webhook payloads from payment providers and services.</div>
+  </div>
+
+  <h2>The secure way: a self-destructing encrypted link</h2>
+  <p>SecretNote encrypts your secret in the browser using AES-256-GCM, stores only the ciphertext, and destroys it the moment the recipient opens the link. The decryption key lives only in the URL fragment — a part of the URL that is never sent to any server, including ours.</p>
+
+  <ol class="step-list">
+    <li>Paste your API key or secret into SecretNote. Encryption happens locally in your browser before anything is transmitted.</li>
+    <li>Click <strong>Create Note</strong>. You get a one-time link. The key in the URL fragment is invisible to servers and network monitors.</li>
+    <li>Send the link to your colleague via Slack, email, or any channel. The link itself reveals nothing — only the encrypted blob ID.</li>
+    <li>They click the link. The key is decrypted in their browser, displayed once, and the note is permanently deleted. If they try the link again, it is already gone.</li>
+  </ol>
+
+  <h2>Add a time limit for contractor handoffs</h2>
+  <p>When sharing with a contractor or external developer, set an expiry. If they do not retrieve the key within 24 hours — or whatever window you choose — the note self-destructs automatically. There is no dangling secret waiting to be found later.</p>
+
+  <h2>For the most sensitive secrets: double-layer protection</h2>
+  <p>Use SecretNote's optional passphrase on top of the standard encryption. The flow looks like this:</p>
+  <ul>
+    <li>Send the one-time link via Slack or email.</li>
+    <li>Send the passphrase separately via SMS or a quick call.</li>
+    <li>An attacker who intercepts either channel alone cannot access the secret.</li>
+  </ul>
+  <p>This is especially useful for production credentials, billing API keys, or anything with financial exposure.</p>
+
+  <h2>What to do after sharing</h2>
+  <p>Even with a self-destructing link, follow these steps once the recipient has the key:</p>
+  <ul>
+    <li>Rotate the key after the onboarding period if the service supports it — treat any shared secret as potentially exposed.</li>
+    <li>Scope the key to the minimum required permissions before sharing.</li>
+    <li>Store the key in a secrets manager (Vault, AWS Secrets Manager, Doppler) going forward rather than sharing it again by hand.</li>
+  </ul>
+
+  <div class="cta-box">
+    <p>Share your API key or secret now — encrypted, one-time, no account needed.</p>
+    <a href="../index.html" class="btn">Create a Secure One-Time Note →</a>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+  <h3>Can SecretNote read my API key?</h3>
+  <p>No. The AES-256-GCM encryption key exists only in the URL fragment, which is never sent to our server. We receive and store only ciphertext we cannot decrypt.</p>
+
+  <h3>What if someone forwards the link?</h3>
+  <p>A forwarded link is already dead once the first person opens it. Each link is strictly one-time-use. The second person to open it sees a "note not found" message.</p>
+
+  <h3>Is there a size limit?</h3>
+  <p>Up to 50,000 characters — more than enough for any key, token, certificate, or <code>.env</code> block.</p>
+
+  <h3>Why not just use a password manager's sharing feature?</h3>
+  <p>Password managers are excellent for long-term storage but typically require both parties to have accounts. SecretNote requires nothing — just a browser. Use it for one-off handoffs; use a password manager for ongoing shared credentials.</p>
+
+  <div class="related-links">
+    <h2>Related guides</h2>
+    <ul>
+      <li><a href="send-password-securely-online.html">How to send a password securely online</a></li>
+      <li><a href="share-credentials-safely.html">How to share login credentials safely</a></li>
+      <li><a href="one-time-secret-link.html">One-time secret link generator</a></li>
+      <li><a href="encrypted-note-browser.html">Encrypted notes stored in browser only</a></li>
+      <li><a href="self-destructing-note-no-account.html">Self-destructing notes — no account needed</a></li>
+    </ul>
+  </div>
+
+</div>
+</main>
+
+<div id="site-footer"></div>
+<script src="../js/layout.js"></script>
+</body>
+</html>
