@@ -14,10 +14,11 @@
 }
 .logo { display: flex; align-items: center; gap: .5rem; text-decoration: none; flex-shrink: 0; }
 .logo-icon {
-  width: 28px; height: 28px; border-radius: 7px;
-  background: var(--primary); display: flex;
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--primary-gradient); display: flex;
   align-items: center; justify-content: center;
-  font-size: .85rem; color: #fff; flex-shrink: 0;
+  box-shadow: 0 2px 6px var(--primary-glow);
+  flex-shrink: 0;
 }
 .logo-name { font-size: 1.05rem; font-weight: 800; color: var(--text); letter-spacing: -.03em; }
 .logo-name span { color: var(--primary); }
@@ -53,6 +54,7 @@
   font-size: .7rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: .08em; color: var(--primary);
   background: var(--primary-light); border: 1px solid var(--primary-border);
+  box-shadow: 0 0 0 5px var(--primary-glow);
   border-radius: 999px; padding: .22rem .7rem; margin-bottom: .85rem;
 }
 .hero-band h1 { margin-bottom: .45rem; letter-spacing: -.025em; }
@@ -109,7 +111,7 @@
   color: var(--text-muted); font-family: var(--font); transition: all .15s; white-space: nowrap; line-height: 1;
 }
 .epill:hover { border-color: var(--primary); color: var(--primary); }
-.epill.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+.epill.active { background: var(--primary-gradient); border-color: transparent; color: #fff; }
 .custom-row { display: none; align-items: center; gap: .5rem; flex-wrap: wrap; margin-top: .4rem; margin-bottom: .4rem; }
 .custom-row.show { display: flex; }
 .custom-preview { font-size: .77rem; color: var(--primary); font-weight: 600; }
@@ -143,8 +145,8 @@
   font-family: var(--font); font-size: .86rem; font-weight: 600;
   cursor: pointer; border: none; transition: all .15s; white-space: nowrap; line-height: 1;
 }
-.btn-primary { background: var(--primary); color: #fff; }
-.btn-primary:hover { background: var(--primary-dark); }
+.btn-primary { background: var(--primary-gradient); color: #fff; box-shadow: 0 2px 10px var(--primary-glow); }
+.btn-primary:hover { filter: brightness(1.05); box-shadow: 0 4px 16px var(--primary-glow); transform: translateY(-1px); }
 .btn-green { background: var(--green); color: #fff; }
 .btn-green:hover { filter: brightness(1.07); }
 .btn-red { background: var(--red); color: #fff; }

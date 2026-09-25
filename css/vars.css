@@ -2,6 +2,8 @@
 :root {
   --primary:       #2563EB;
   --primary-dark:  #1D4ED8;
+  --primary-2:     #0EA5E9;
+  --primary-gradient: linear-gradient(135deg, var(--primary), var(--primary-2));
   --primary-light: #EFF6FF;
   --primary-glow:  rgba(37,99,235,.12);
   --primary-border:rgba(37,99,235,.25);
@@ -61,6 +63,7 @@
 [data-theme="dark"] {
   --primary:       #3B82F6;
   --primary-dark:  #2563EB;
+  --primary-2:     #38BDF8;
   --primary-light: #1E3A5F;
   --primary-glow:  rgba(59,130,246,.14);
   --primary-border:rgba(59,130,246,.3);

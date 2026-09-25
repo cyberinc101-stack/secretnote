@@ -22,11 +22,23 @@
   /* ── Header ─────────────────────────────────────────── */
   function pre(){ return location.pathname.includes('/pages/') ? '../' : ''; }
 
+  function logoMark(){
+    return '<svg viewBox="0 0 28 28" width="18" height="18" aria-hidden="true" focusable="false">'
+      +'<path fill="#fff" d="M8 4H16V8H19V11H22V22A2 2 0 0 1 20 24H8A2 2 0 0 1 6 22V6A2 2 0 0 1 8 4Z"/>'
+      +'<g fill="#fff">'
+      +'<rect x="21" y="2" width="3" height="3" rx="0.7" opacity=".6"/>'
+      +'<rect x="24.4" y="6.2" width="2.3" height="2.3" rx="0.5" opacity=".42"/>'
+      +'<rect x="17.3" y="1" width="2" height="2" rx="0.45" opacity=".42"/>'
+      +'</g>'
+      +'<path stroke="var(--primary)" stroke-width="1.6" stroke-linecap="round" d="M9 14H14M9 17.4H18M9 20.8H16"/>'
+      +'</svg>';
+  }
+
   function buildHeader(){
     var p = pre();
     return '<header class="site-header"><div class="header-inner">'
       +'<a href="'+p+'index.html" class="logo">'
-      +'<div class="logo-icon">&#128274;</div>'
+      +'<div class="logo-icon">'+logoMark()+'</div>'
       +'<div class="logo-name">Secret<span>Note</span></div>'
       +'</a>'
       +'<nav class="header-nav">'
