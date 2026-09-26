@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -280,8 +280,10 @@
     var pw2 = document.getElementById('opt-pw2').value;
     if(pw && pw!==pw2){ showToast('Passwords do not match', true); return; }
 
-    var expiryMins = _expiry;
-    if(_expiry==='custom'){
+    var activePill = document.querySelector('.epill.active');
+    var pillVal = activePill ? activePill.dataset.val : _expiry;
+    var expiryMins = pillVal;
+    if(pillVal==='custom'){
       var n=parseInt(document.getElementById('custom-num').value);
       var u=parseInt(document.getElementById('custom-unit').value);
       if(!n||n<=0){ showToast('Enter a valid custom time', true); return; }
@@ -334,7 +336,7 @@
     function tick(){
       var left=GN.formatTimeLeft(exp);
       document.getElementById('countdown-text').textContent=left;
-      if(left==='Expired'){ clearInterval(_timer); document.getElementById('countdown-text').textContent='Expired'; }
+      if(left==='Expired'){ clearInterval(_timer); document.getElementById('countdown-text').textContent='Expired'; GN.deleteNote(_noteId); }
     }
     tick(); _timer=setInterval(tick,1000);
   }

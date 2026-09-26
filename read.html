@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -144,8 +144,6 @@
 (function(){
   var _id      = null;
   var _keyHex  = null;
-  var _noteData= null;
-  var _memText = null; // for pw-protected notes that were already decrypted
   var _cdTimer = null;
 
   function show(id){
@@ -162,7 +160,7 @@
     function tick(){
       var left = GN.formatTimeLeft(expiresAt);
       txt.textContent = left;
-      if(left==='Expired'){ clearInterval(_cdTimer); show('s-expired'); }
+      if(left==='Expired'){ clearInterval(_cdTimer); GN.deleteNote(_id); show('s-expired'); }
     }
     tick();
     _cdTimer = setInterval(tick,1000);
@@ -173,15 +171,12 @@
     _id     = parsed.id;
     _keyHex = parsed.keyHex;
 
-    if(!_id || !_keyHex){ show('s-gone'); return; }
+    if(!_id){ show('s-gone'); return; }
 
     var note = GN.peekNote(_id);
     if(!note)          { show('s-gone');    return; }
     if(note.expired)   { show('s-expired'); return; }
 
-    _noteData = note;
-
-    // Update confirm meta
     var metaExpiry = document.getElementById('meta-expiry');
     if(note.expiresAt){
       metaExpiry.textContent = 'Expires: ' + new Date(note.expiresAt).toLocaleString();
@@ -189,9 +184,14 @@
       metaExpiry.textContent = 'Destroyed immediately after reading';
     }
 
+    if(note.pwSalt){
+      document.getElementById('pw-field').style.display = '';
+      document.getElementById('meta-pw').textContent = 'Password protected';
+    }
+
     startReadCountdown(note.expiresAt);
 
-    if(note.noConfirm){
+    if(note.noConfirm && !note.pwSalt){
       await doReveal();
     } else {
       show('s-confirm');
@@ -202,59 +202,28 @@
     var btn = document.getElementById('reveal-btn');
     if(btn){ btn.disabled=true; btn.textContent='Decrypting...'; }
 
+    var pwInput = document.getElementById('pw-input');
+    var pwVal   = pwInput ? pwInput.value : '';
+
     try {
-      // If we already decrypted (pw check loop), use _memText
-      if(_memText !== null){
-        displayNote(_memText);
+      var result = await GN.readAndDestroy(_id, _keyHex, pwVal || undefined);
+
+      if(!result)              { show('s-gone');    return; }
+      if(result.expired)       { show('s-expired'); return; }
+      if(result.needsPassword) {
+        show('s-confirm');
+        if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
+        return;
+      }
+      if(result.wrongPassword) {
+        document.getElementById('pw-error').style.display='';
+        show('s-confirm');
+        if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
         return;
       }
 
-      var result = await GN.readAndDestroy(_id, _keyHex);
-      if(!result)         { show('s-gone');    return; }
-      if(result.expired)  { show('s-expired'); return; }
-
-      var text = result.text;
-
-      // Password check
-      if(text.startsWith('PWD:')){
-        var parts    = text.split('\n---CONTENT---\n');
-        var storedPw = parts[0].replace('PWD:','');
-        var content  = parts[1] || '';
-        var entered  = document.getElementById('pw-input') ? document.getElementById('pw-input').value : '';
-
-        if(!entered){
-          // Show pw field, keep text in memory
-          _memText = text;
-          document.getElementById('pw-field').style.display = '';
-          document.getElementById('meta-pw').textContent = 'Password protected';
-          show('s-confirm');
-          if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
-          return;
-        }
-        if(entered !== storedPw){
-          document.getElementById('pw-error').style.display='';
-          _memText = text;
-          show('s-confirm');
-          if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
-          return;
-        }
-        text = content;
-      } else if(_memText && _memText.startsWith('PWD:')){
-        var parts2    = _memText.split('\n---CONTENT---\n');
-        var storedPw2 = parts2[0].replace('PWD:','');
-        var content2  = parts2[1] || '';
-        var entered2  = document.getElementById('pw-input').value;
-        if(entered2 !== storedPw2){
-          document.getElementById('pw-error').style.display='';
-          show('s-confirm');
-          if(btn){ btn.disabled=false; btn.textContent='Unlock Note'; }
-          return;
-        }
-        text = content2;
-      }
-
       if(_cdTimer) clearInterval(_cdTimer);
-      displayNote(text);
+      displayNote(result.text);
 
     } catch(err){
       show('s-gone');
