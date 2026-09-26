@@ -20,7 +20,10 @@
   window.setTheme = function(t){ applyTheme(t); };
 
   /* ── Header ─────────────────────────────────────────── */
-  function pre(){ return location.pathname.includes('/pages/') ? '../' : ''; }
+  function pre(){
+    var path = location.pathname;
+    return (path.includes('/pages/') || path.includes('/seo/')) ? '../' : '';
+  }
 
   function logoMark(){
     return '<svg viewBox="0 0 28 28" width="18" height="18" aria-hidden="true" focusable="false">'
@@ -58,16 +61,24 @@
     var p = pre();
     return '<footer class="site-footer">'
       +'<div class="footer-inner">'
-      +'<div class="footer-col"><div class="footer-col-title">SecretNote</div>'
+      +'<div class="footer-col footer-col-brand"><div class="footer-col-title">SecretNote</div>'
+      +'<p class="footer-blurb">Encrypted notes that delete themselves after one read. No accounts, no tracking, nothing left behind.</p>'
       +'<a href="'+p+'index.html">Create a Note</a>'
       +'<a href="'+p+'pages/how-it-works.html">How It Works</a>'
       +'<a href="'+p+'pages/faq.html">FAQ</a>'
       +'</div>'
       +'<div class="footer-col"><div class="footer-col-title">Use Cases</div>'
-      +'<a href="'+p+'index.html">Share Passwords</a>'
-      +'<a href="'+p+'index.html">Private Messages</a>'
-      +'<a href="'+p+'index.html">One-Time Codes</a>'
-      +'<a href="'+p+'index.html">API Keys &amp; Tokens</a>'
+      +'<a href="'+p+'seo/send-password-securely-online.html">Share Passwords</a>'
+      +'<a href="'+p+'seo/share-credentials-safely.html">Share Credentials</a>'
+      +'<a href="'+p+'seo/share-api-key-safely.html">API Keys &amp; Tokens</a>'
+      +'<a href="'+p+'seo/burn-after-reading-message.html">Private Messages</a>'
+      +'<a href="'+p+'seo/one-time-secret-link.html">One-Time Links</a>'
+      +'</div>'
+      +'<div class="footer-col"><div class="footer-col-title">Resources</div>'
+      +'<a href="'+p+'seo/index.html">Security Guides</a>'
+      +'<a href="'+p+'seo/encrypted-note-browser.html">How Encryption Works</a>'
+      +'<a href="'+p+'seo/self-destructing-note-no-account.html">No Account Needed</a>'
+      +'<a href="'+p+'seo/privnote-alternative.html">Privnote Alternative</a>'
       +'</div>'
       +'<div class="footer-col"><div class="footer-col-title">Legal</div>'
       +'<a href="'+p+'pages/privacy.html">Privacy Policy</a>'
