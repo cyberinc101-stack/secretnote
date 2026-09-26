@@ -125,9 +125,13 @@
           <input type="text" class="opt-input" id="opt-ref" placeholder="e.g. Server login for Alice" maxlength="60">
         </div>
         <div class="opt-field">
-          <label class="opt-label">Notify on destroy</label>
+          <label class="opt-label">Notify on destroy (email)</label>
           <input type="email" class="opt-input" id="opt-email" placeholder="your@email.com">
-          <span class="opt-hint">Email notification &mdash; coming soon</span>
+        </div>
+        <div class="opt-field">
+          <label class="opt-label">Notify on destroy (SMS)</label>
+          <input type="tel" class="opt-input" id="opt-phone" placeholder="+1 555 123 4567">
+          <span class="opt-hint">Include country code</span>
         </div>
       </div>
 
@@ -290,16 +294,22 @@
       expiryMins = String(n*u);
     }
 
-    var noteText  = pw ? ('PWD:'+pw+'\n---CONTENT---\n'+text) : text;
     var noConfirm = document.getElementById('opt-noconfirm').checked;
     var ref       = document.getElementById('opt-ref').value.trim();
+    var emailEl   = document.getElementById('opt-email');
+    var phoneEl   = document.getElementById('opt-phone');
+    var email     = emailEl ? emailEl.value.trim() : '';
+    var phone     = phoneEl ? phoneEl.value.trim() : '';
+    var notify    = (email || phone) ? { email: email||null, phone: phone||null, ref: ref||null } : null;
     var btn       = document.getElementById('create-btn');
     btn.disabled=true; btn.textContent='Encrypting...';
 
     try {
-      var res = await GN.createNote(noteText, {
+      var res = await GN.createNote(text, {
         expiry:    expiryMins==='read' ? null : expiryMins,
         noConfirm: noConfirm,
+        password:  pw || null,
+        notify:    notify,
       });
       _noteId = res.id;
 
@@ -308,12 +318,17 @@
 
       var mins = parseInt(expiryMins);
       var meta = 'One-time link';
-      if(ref) meta += ' · '+ref;
-      if(mins>0) meta += ' · Expires in '+fmtMins(mins);
+      if(res.hasPassword) meta += ' \u00b7 Password protected';
+      if(ref) meta += ' \u00b7 '+ref;
+      if(mins>0) meta += ' \u00b7 Expires in '+fmtMins(mins);
       document.getElementById('result-meta').textContent = meta;
       document.getElementById('status-text').textContent = mins>0
         ? 'Destroyed when read, or automatically after '+fmtMins(mins)+' if not opened.'
         : 'Permanently destroyed the moment it is opened. No copy will exist anywhere.';
+
+      if(res.hasPassword){
+        showToast('Password set - share it with the recipient separately from the link', false);
+      }
 
       startCountdown(mins);
       document.getElementById('note-card').style.display='none';
