@@ -117,6 +117,7 @@
         <div class="note-display" id="note-text"></div>
         <div class="destroyed-notice">This note has been permanently deleted. No copy exists anywhere.</div>
         <div class="read-actions">
+          <button class="btn btn-red" id="destroy-btn">Destroy</button>
           <button class="btn btn-green" id="copy-note-btn">Copy Text</button>
           <a href="index.html" class="btn btn-outline">Create Your Own Note</a>
         </div>
@@ -273,6 +274,10 @@
     if(revBtn) revBtn.addEventListener('click', doReveal);
     var pwInp = document.getElementById('pw-input');
     if(pwInp) pwInp.addEventListener('keydown', function(e){ if(e.key==='Enter') doReveal(); });
+    var destroyBtn = document.getElementById('destroy-btn');
+    if(destroyBtn) destroyBtn.addEventListener('click', function(){
+      window.location.href = 'index.html';
+    });
     init();
   });
 })();
